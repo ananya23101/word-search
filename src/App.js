@@ -1,9 +1,12 @@
 import logo from './logo.svg';
+import Grid from './components/Grid';
 import './App.css';
 
 function App() {
   return (
-   <div>Word Search</div>
+   <div>Word Search
+    <Grid />
+   </div>
   );
 }
 
