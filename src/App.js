@@ -1,10 +1,11 @@
 import logo from './logo.svg';
-import Grid from './components/Grid';
+import Grid from './components/Gridboard/Grid';
 import './App.css';
+import Square from './components/Gridsquare/Square';
 
 function App() {
   return (
-   <div>Word Search
+   <div className='App'>
     <Grid />
    </div>
   );
