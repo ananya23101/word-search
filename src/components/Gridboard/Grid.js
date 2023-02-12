@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import Square from "../Gridsquare/Square";
-import './grid.css';
+import { useEffect, useState } from "react";
+
 const Grid = () => {
 
-    const [list, setList] = useState([]);
-    const [row, setRow] = useState(0);
-    const [col , setCol] = useState(0);
-    const [direction , setDirection] = useState();
+    const [row , setRow] = useState();
+    const [col , setCol] = useState();
+      
+    const letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 
+    'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 
+    'z'];
+    
 
-    const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "R", "T", "U", "V", "W", "X", "Y", "Z"];
-   const wordList = ["Andra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka","Kerala","Madya Pradesh","Maharashtra","Manipur",
+    const wordList = ["Andra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka","Kerala","Madya Pradesh","Maharashtra","Manipur",
                      "Meghalaya","Mizoram","Nagaland","Orissa","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telagana","Tripura","Uttaranchal","Uttar Pradesh","West Bengal","Andaman and Nicobar Islands","Chandigarh","Dadar and Nagar Haveli",
                      "Daman and Diu","Delhi","Lakshadeep","Pondicherry","Hyderabad","Amaravati","Itangar","Dispur","Patna","Raipur","Panaji","Gandhinagar","Chandigarh","Shimla","Srinagar","Jammu","Ranchi","Bangalore","Thiruvananthapuram",
                      "Bhopal","Mumbai","Imphal","Shillong","Aizawi","Kohima","Bhubaneshwar","Chandigarh","Jaipur","Gangtok","Chennai","Hyderabad","Agartala","Dehradun","Lucknow","Kolkata","Capital","Port Blair","Chandigarh","Silvassa","Daman",
@@ -21,90 +22,93 @@ const Grid = () => {
                      "Apple","Watermelon","Orange","Pear","Cherry","Strawberry","Nectarine","Grape","Mango","Blueberry","Pomegranate","Plum", "Banana","Raspberry","Mandarin","Jackfruit","Papaya","Kiwi","Pineapple","Lime","Lemon","Apricot","Grapefruit","Melon","Coconut",
                      "Avocado","Peach","Greatgrandfather","Greatgrandmother","Greatuncle","Grandfather","Grandmother","Greataunt","Uncle","Aunt","Father","Mother","Sister","Brother","Husband","Wife","Cousin","Nephew","Niece","Son","Daughter","Grandson","Granddaughter",
                      "Bolt","Nail","Screwdriver","Bradawl","Handsaw","Nut","Screw","Wrench","Backsaw","Mallet","Hammer","Hacksaw","Chainsaw","Brace","Toolbox","Corkscrew","Plunger","Stepladder","Apple", "Orange", "Table", "Elephant","Total", "Super", "React", "Angular", 
-                     "Selenium", "Automation"]
+                     "Selenium", "Automation"];
 
-    const directions = ["horizontal" , "horizontalBack" , "vertical", "verticalUp", "diagonal", "diagonalUp", "diagonalBack", "diagonalUpBack" ];
-   //making a word grid
-   let grid = [];
-   for( let i = 0 ; i < 12 ; i++){
-    grid.push([]);
-    for(let j = 0 ; j < 12 ; j++){
-        grid[i].push("A");
-    }
-}
-    //getting random words from the wordList
-    const randomWords = () => {
+   
+    const directions = [ {x:1,y:0} , {x:0,y:1} , {x:-1,y:0} , {x:0,y:-1} , {x:1,y:1} , {x:-1,y:-1} , {x:1,y:-1} , {x:-1,y:1} ]
+
+   
     let list = [];
-    for(let i = 0 ; i<7 ; i++){
-        list.push(wordList[Math.floor(Math.random() * wordList.length)]);
+    const getRandomWords = () => {
+            for(let i = 0 ; i<7 ; i++){
+            list.push(wordList[Math.floor(Math.random() * wordList.length)]);
+            }
+        return;
     }
-   setList(list);
+    
+    const getRandomRow = () => {
+        return Math.floor(Math.random() * 12);
     }
-//get random row
-const getRandomRow = () => {
-    return Math.floor(Math.random() * 12);
-}
-//get random column
-const getRandomColumn = () => {
-    return Math.floor(Math.random()* 12);
-}
-const getRandomDirection = () =>{
-    return directions[Math.floor(Math.random() * directions.length)];
-}
 
-// const placeWords = () => {
-//     for( let i = 0 ; i < list.length ; i++){
+    const getRandomCol = () => {
+        return Math.floor(Math.random() * 12);
+    }
 
-//     }
-// }
+    const getRandomDirection = () => {
+       return directions[Math.floor(Math.random() * directions.length)]
+    }
 
-const placeWord = () => {
-    var start = 4;
-    var end = 11;
-    var word = "hello";
 
-   
-
-    for(let letter of word){
+    const fillWords = (word ,grid) =>{
+        var start = getRandomRow();
+        var end = getRandomCol();
+        var direction = getRandomDirection();
+        var s = start;
+        var e = end
+        console.log(start , end, direction , s, e); 
         
-        if(start < 0 || start >= grid.length || end<0 || end>= grid.length){
-            console.log("not possible to fit");
-            return;
-        }
-        else if(grid[start][end]!==letter && grid[start][end]!== " "){
-            console.log("not enough space");
-            return;
-        }
 
-        start += 1;
-        end += 1;
+        for(let letter of word){
+               if(start < 0 || start >= 12 || end >= 12 || end < 0){
+                console.log("no fit")
+                return false;
+               }
+               else if( grid[start][end] !== " "  &&  grid[start][end]!==letter){
+                console.log("not enough space");
+                return false;
+               }
+               start += direction.x;
+               end += direction.y;
+            }
+        for( let letter of word){
+            grid[s][e] = letter;
+            s += direction.x;
+            e += direction.y;
+        }
+        return;      
     }
 
-    start = 2;
-    end = 6;
-    for(let lette of word){
-        grid[start][end]=lette;
-        start += 1;
-        end +=1;
+   const fillGrid = () => {
+ 
+    var grid = [];
+
+    for( var i = 0 ; i< 12 ; i++){
+       grid.push([]);
+       for( let j = 0 ; j<12 ; j++){
+           grid[i].push(" ");
+       }
     }
-    console.log(grid)
-    return grid;
-}
-   
-useEffect(() => {
-     randomWords();
-     setCol(getRandomColumn());
-     setRow(getRandomRow());
-     setDirection(getRandomDirection());
-     placeWord();
-},[])
+         for( let i =0 ; i < 7 ; i++){
+
+            fillWords(list[i] , grid);
+
+         }
+         console.log(grid);
+         return grid;
+
+   }
+
+   useEffect(()=>{
+    getRandomWords();
+    console.log(list);
+    fillGrid();
+   },[])
+
 
 
     return ( 
-        <>
-    
-      </>
+        <></>
      );
 }
  
-export default Grid
+export default Grid;
