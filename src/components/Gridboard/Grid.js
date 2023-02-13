@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
+import Square from "../Gridsquare/Square";
+import './grid.css';
 
 const Grid = () => {
 
-    const [row , setRow] = useState();
-    const [col , setCol] = useState();
-      
+
     const letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 
     'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 
     'z'];
     
-
+   
     const wordList = ["Andra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka","Kerala","Madya Pradesh","Maharashtra","Manipur",
                      "Meghalaya","Mizoram","Nagaland","Orissa","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telagana","Tripura","Uttaranchal","Uttar Pradesh","West Bengal","Andaman and Nicobar Islands","Chandigarh","Dadar and Nagar Haveli",
                      "Daman and Diu","Delhi","Lakshadeep","Pondicherry","Hyderabad","Amaravati","Itangar","Dispur","Patna","Raipur","Panaji","Gandhinagar","Chandigarh","Shimla","Srinagar","Jammu","Ranchi","Bangalore","Thiruvananthapuram",
@@ -27,13 +27,19 @@ const Grid = () => {
    
     const directions = [ {x:1,y:0} , {x:0,y:1} , {x:-1,y:0} , {x:0,y:-1} , {x:1,y:1} , {x:-1,y:-1} , {x:1,y:-1} , {x:-1,y:1} ]
 
-   
-    let list = [];
+
     const getRandomWords = () => {
+        var list = [];
             for(let i = 0 ; i<7 ; i++){
-            list.push(wordList[Math.floor(Math.random() * wordList.length)]);
+                let randWord = wordList[Math.floor(Math.random() * wordList.length)]
+                if(list.indexOf(randWord) < 0){
+                    list.push(randWord);
+                }
+                else{
+                    i--;
+                }
             }
-        return;
+            return list;
     }
     
     const getRandomRow = () => {
@@ -71,15 +77,20 @@ const Grid = () => {
                end += direction.y;
             }
         for( let letter of word){
-            grid[s][e] = letter;
+            if(letter === " ") {continue;}
+            grid[s][e] = letter.toUpperCase();
             s += direction.x;
             e += direction.y;
         }
         return;      
     }
+   
+    const [puzzle , setPuzzle] = useState([]);
 
    const fillGrid = () => {
- 
+    var list = getRandomWords();
+    console.log(list);
+
     var grid = [];
 
     for( var i = 0 ; i< 12 ; i++){
@@ -88,26 +99,31 @@ const Grid = () => {
            grid[i].push(" ");
        }
     }
-         for( let i =0 ; i < 7 ; i++){
+
+         for( let i =0 ; i < list.length ; i++){
 
             fillWords(list[i] , grid);
 
          }
-         console.log(grid);
-         return grid;
-
+         setPuzzle(grid);
+         return puzzle;
    }
 
+  
+
    useEffect(()=>{
-    getRandomWords();
-    console.log(list);
-    fillGrid();
+       fillGrid();
+       console.log(puzzle);
    },[])
 
 
 
     return ( 
-        <></>
+        <div className="word-grid">{puzzle.map(item => {
+            return <div> { item.map(box => {
+                return <Square letter = {box} />
+            })}</div>
+          })}</div>
      );
 }
  
