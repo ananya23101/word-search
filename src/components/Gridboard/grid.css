@@ -6,7 +6,7 @@ p{
 }
 .word-grid{
     display: grid;
-    grid-template-columns: repeat(12, 50px);
+    grid-template-columns: repeat(14, 50px);
     text-align: center;
     align-self: center;
 }
