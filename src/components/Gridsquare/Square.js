@@ -1,9 +1,19 @@
+import { useState } from 'react';
 import './Square.css'
+import useGameStart from '../useGameStart';
 
 
-const Square = (props) => {
+const Square = ({letter , onHandleClick , state}) => {
+   
+   const handleMouseDown = () =>{
+      console.log(!state , letter.row , letter.col);
+   }
+   
     return ( 
-        <span className="square">{props.letter}</span>
+        <><div className="square" onClick={() => onHandleClick()} onMouseDown={handleMouseDown}>{letter.value}</div>
+        </>
+        
+       
      );
 }
  

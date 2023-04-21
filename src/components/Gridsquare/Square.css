@@ -9,3 +9,7 @@
 .square:hover{
     background-color: #000;
 }
+.square-clicked {
+    background-color: #000;
+    color: antiquewhite;
+}
