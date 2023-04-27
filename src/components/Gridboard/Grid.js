@@ -73,6 +73,7 @@ const Grid = () => {
       fillUnplacedWords(word , grid, 0);
       return false;
     }
+
     const fillWords = (word ,grid) =>{
         var start = getRandomRow();
         var end = getRandomCol();
@@ -106,6 +107,7 @@ const Grid = () => {
         }
         return;      
     }
+
     const fillUnplacedWordsInGrid = (word, grid , s , e, direction) =>{
         for( let letter of word){
             if(letter === " ") {continue;}
@@ -181,17 +183,22 @@ const Grid = () => {
    // eslint-disable-next-line react-hooks/exhaustive-deps
    },[])
 
-   const [gameStart , setGameStart] = useState(false);
-
+    let [gameStart , setGameStart] = useState(false);
     const handleClick = () => {
-        setGameStart(!gameStart);
+       setGameStart(!gameStart);
+       hello(gameStart);
+    }
+    const hello = (gameState) => {
+        if(gameState){
+            console.log("hello");
+        }
     }
 
     return ( 
         <>
         <div className="word-grid">{puzzle.map(item => {
             return <div> { item.map(box => {
-                return <Square letter={box} onHandleClick = {handleClick} state = {gameStart}/>
+                return <Square letter={box} state = {gameStart} onHandleClick = {handleClick}/>
             })}</div>
           })}</div>
          <div><h2>Words to be found</h2>{filledWords.map(word => {
