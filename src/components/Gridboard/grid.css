@@ -1,12 +1,14 @@
 * {
-    box-sizing: border-box;
-  }
-p{
-  margin: 0px;
+  box-sizing: border-box;
 }
-.word-grid{
-    display: grid;
-    grid-template-columns: repeat(14, 50px);
-    text-align: center;
-    align-self: center;
+
+.word-grid {
+  display: grid;
+  grid-gap: 0px;
+}
+
+.grid-row {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0px;
 }

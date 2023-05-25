@@ -1,26 +1,31 @@
-import { useState } from 'react';
-import './Square.css'
+import "./Square.css";
 
+const Square = ({ letter, onHandleClick, state, arrIndex, id, arr }) => {
+  const handleMouseDown = () => {
+    arrIndex[id] = { row: letter.row, col: letter.col };
+  };
 
+  const isInArray = arr.some(
+    (item) => item.row === letter.row && item.col === letter.col
+  );
 
-const Square = ({letter , onHandleClick ,  state}) => {
+  return (
+    <>
+      <div
+        className={`square ${isInArray ? "square-clicked" : " "}`}
+        onMouseDown={() => {
+          onHandleClick();
+          handleMouseDown();
+        }}
+        onMouseUp={() => {
+          onHandleClick();
+          handleMouseDown();
+        }}
+      >
+        {letter.value}
+      </div>
+    </>
+  );
+};
 
-   
-   const handleMouseDown = () =>{
-        console.log(letter.row , letter.col);
-   }
-   const handleMouseOver = () => {
-        if(state){
-            console.log(letter.row , letter.col);
-        }
-   }
-   
-    return ( 
-        <><div className="square" onMouseDown={() => {onHandleClick() ; handleMouseDown()}} onMouseOver={handleMouseOver} onMouseUp={() => {onHandleClick() ; handleMouseDown()}} >{letter.value}</div>
-        </>
-        
-       
-     );
-}
- 
 export default Square;
