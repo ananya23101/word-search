@@ -3,6 +3,7 @@ import Square from "../Gridsquare/Square";
 import "./grid.css";
 import Alertbox from "../Alertbox/Alertbox";
 
+// eslint-disable-next-line no-unused-vars
 const letters = [
   "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
 ];
@@ -165,14 +166,14 @@ const Grid = () => {
       fillWords(list[i], grid);
     }
 
-    //  for( let i = 0 ; i< 14 ; i++){
-    //     for( let j = 0 ; j<14 ; j++){
-    //           if(grid[i][j].value === " "){
-    //             let letter =  letters[Math.floor(Math.random() * letters.length)]
-    //             grid[i][j].value = letter;
-    //           }
-    //     }
-    //  }
+     for( let i = 0 ; i< 14 ; i++){
+        for( let j = 0 ; j<14 ; j++){
+              if(grid[i][j].value === " "){
+                let letter =  letters[Math.floor(Math.random() * letters.length)]
+                grid[i][j].value = letter;
+              }
+        }
+     }
     setPuzzle(grid);
   };
   useEffect(() => {
