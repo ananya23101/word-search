@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Square from "../Gridsquare/Square";
 import "./grid.css";
+import Alertbox from "../Alertbox/Alertbox";
 
 const letters = [
   "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
@@ -13,16 +14,7 @@ const wordList = ["Assam","Bihar","Goa","Gujarat","Haryana","Jharkhand","Karnata
                   "Plum","Banana","Raspberry","Mandarin","Jackfruit","Papaya","Kiwi","Pineapple","Lime","Lemon","Apricot","Grapefruit","Melon","Coconut","Avocado","Peach","Greatuncle","Grandfather","Grandmother","Greataunt","Uncle","Aunt","Father","Mother","Sister","Brother","Husband","Wife","Cousin","Nephew","Niece","Son","Daughter","Grandson","Granddaughter","Bolt","Nail","Screwdriver","Bradawl","Handsaw","Nut","Screw","Wrench","Backsaw","Mallet","Hammer","Hacksaw","Chainsaw","Brace","Toolbox",
                   "Corkscrew","Plunger","Stepladder","Apple","Orange","Table","Elephant","Total","Super","React","Angular","Selenium","Automation"];
 
-const directions = [
-  { x: 1, y: 1 },
-  { x: -1, y: -1 },
-  { x: 1, y: -1 },
-  { x: -1, y: 1 },
-  { x: 1, y: 0 },
-  { x: 0, y: 1 },
-  { x: -1, y: 0 },
-  { x: 0, y: -1 },
-];
+const directions = [ { x: 1, y: 1 }, { x: -1, y: -1}, { x: 1, y: -1 }, { x: -1, y: 1 }, { x: 1, y: 0 }, { x: 0, y: 1 }, { x: -1, y: 0 }, { x: 0, y: -1 },];
 
 const Grid = () => {
   const [puzzle, setPuzzle] = useState([]);
@@ -33,7 +25,7 @@ const Grid = () => {
     for (let i = 0; i < 7; i++) {
       let randWord = wordList[Math.floor(Math.random() * wordList.length)];
       if (list.indexOf(randWord) < 0) {
-        list.push(randWord);
+        list.push(randWord.toUpperCase());
       } else {
         i--;
       }
@@ -188,12 +180,11 @@ const Grid = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  let [gameStart, setGameStart] = useState(false);
+  let [gameFail, setGameFail] = useState(false);
   let arrIndex = useRef([]);
   let [keyId, setKeyID] = useState(0);
 
   const handleClick = () => {
-    setGameStart(!gameStart);
     if (keyId === 1) {
       setKeyID(0);
       arrIndex = [];
@@ -400,11 +391,13 @@ const Grid = () => {
                 return (
                   <Square
                     letter={box}
-                    state={gameStart}
+                    state={gameFail}
+                    setState = {setGameFail}
                     onHandleClick={handleClick}
                     arrIndex={arrIndex.current}
                     id={keyId}
                     arr={arr}
+                    word = {filledWords}
                   />
                 );
               })}
@@ -420,6 +413,7 @@ const Grid = () => {
             <p key={filteredWord}>{filteredWord}</p>
           ))}
       </div>
+      {filledWords.length <= 0 ? <Alertbox len={true}/> : ""}
     </>
   );
 };
