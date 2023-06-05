@@ -383,7 +383,9 @@ const Grid = () => {
 
   return (
     <>
-      <div className="word-grid">
+    <h1>Word-Search</h1>
+    <div className="grid-container">
+    <div className="word-grid">
         {puzzle.map((item, rowIndex) => {
           return (
             <div className="grid-row">
@@ -414,6 +416,7 @@ const Grid = () => {
           ))}
       </div>
       {filledWords.length <= 0 ? <Alertbox len={true}/> : ""}
+    </div>  
     </>
   );
 };
