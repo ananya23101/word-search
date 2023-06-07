@@ -176,7 +176,7 @@ const Grid = () => {
         for( let j = 0 ; j<14 ; j++){
               if(grid[i][j].value === " "){
                 let letter =  letters[Math.floor(Math.random() * letters.length)]
-                grid[i][j].value = letter;
+                grid[i][j].value = letter.toUpperCase();
               }
         }
      }
