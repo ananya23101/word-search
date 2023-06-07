@@ -20,6 +20,12 @@ const directions = [ { x: 1, y: 1 }, { x: -1, y: -1}, { x: 1, y: -1 }, { x: -1, 
 const Grid = () => {
   const [puzzle, setPuzzle] = useState([]);
   const [filledWords, setFilledWords] = useState([]);
+  const [arr, setArr] = useState([]);
+  let [unplacedWord, setUnplacedWords] = useState([]);
+  let [gameFail, setGameFail] = useState(false);
+  let arrIndex = useRef([]);
+  let [keyId, setKeyID] = useState(0);
+  const [gameRestart , setGameRestart] = useState(false);
 
   const getRandomWords = () => {
     let list = [];
@@ -114,7 +120,7 @@ const Grid = () => {
     }
   };
 
-  let [unplacedWord, setUnplacedWords] = useState([]);
+  
 
   const fillUnplacedWords = (word, grid, k) => {
     for (let i = 0; i < 14; i++) {
@@ -180,10 +186,6 @@ const Grid = () => {
     fillGrid();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  let [gameFail, setGameFail] = useState(false);
-  let arrIndex = useRef([]);
-  let [keyId, setKeyID] = useState(0);
 
   const handleClick = () => {
     if (keyId === 1) {
@@ -350,8 +352,7 @@ const Grid = () => {
   };
 
   // eslint-disable-next-line no-unused-vars
-  const [arr, setArr] = useState([]);
-
+  
   const handleWordSelection = () => {
     if (arrIndex.current.length >= 2) {
       const selectedcells = validateWordSelection(arrIndex.current);
@@ -378,6 +379,7 @@ const Grid = () => {
       }
     }
   };
+  
   
 
   useEffect(() => {
