@@ -183,6 +183,7 @@ const Grid = () => {
     setPuzzle(grid);
   };
   useEffect(() => {
+    setPuzzle([]);
     setArr([]);
     setGameRestart(false);
     fillGrid();
