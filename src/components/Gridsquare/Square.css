@@ -8,6 +8,7 @@
   box-sizing: border-box;
   margin: -1px;
   user-select: none;
+  cursor: pointer;
 }
 
 .square:hover {

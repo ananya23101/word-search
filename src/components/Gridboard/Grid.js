@@ -349,6 +349,7 @@ const Grid = () => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const [arr, setArr] = useState([]);
 
   const handleWordSelection = () => {
@@ -377,9 +378,11 @@ const Grid = () => {
       }
     }
   };
+  
 
   useEffect(() => {
     handleWordSelection();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyId]);
 
   return (
