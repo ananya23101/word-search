@@ -183,9 +183,11 @@ const Grid = () => {
     setPuzzle(grid);
   };
   useEffect(() => {
+    setArr([]);
+    setGameRestart(false);
     fillGrid();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [gameRestart]);
 
   const handleClick = () => {
     if (keyId === 1) {
@@ -421,7 +423,7 @@ const Grid = () => {
             <p key={filteredWord}>{filteredWord}</p>
           ))}
       </div>
-      {filledWords.length <= 0 ? <Alertbox len={true}/> : ""}
+      {filledWords.length <= 0 ? <Alertbox setRestart={setGameRestart}/> : ""}
     </div>  
     </>
   );

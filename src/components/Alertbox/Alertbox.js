@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "./Alertbox.css";
 
-const Alertbox = ({len}) => {
+const Alertbox = ({setRestart}) => {
 
     const gameRestart = () => {
-        window.location.reload();
+        setRestart(true);
     }
      
 
